@@ -5,19 +5,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema LMS
+-- Schema learning-lantern-services
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema LMS
+-- Schema learning-lantern-services
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `LMS` DEFAULT CHARACTER SET utf8 ;
-USE `LMS` ;
+CREATE SCHEMA IF NOT EXISTS `learning-lantern-services` DEFAULT CHARACTER SET utf8 ;
+USE `learning-lantern-services` ;
 
 -- -----------------------------------------------------
--- Table `LMS`.`User`
+-- Table `learning-lantern-services`.`User`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`User` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`User` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Email` NVARCHAR(250) NOT NULL,
   `FirstName` NVARCHAR(50) NOT NULL,
@@ -34,9 +34,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`ConfirmedStudent`
+-- Table `learning-lantern-services`.`ConfirmedStudent`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`ConfirmedStudent` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`ConfirmedStudent` (
   `UserId` INT NOT NULL,
   `ConfirmationCode` NVARCHAR(10) NOT NULL,
   `ConfirmationDate` DATETIME NOT NULL,
@@ -46,16 +46,16 @@ CREATE TABLE IF NOT EXISTS `LMS`.`ConfirmedStudent` (
   UNIQUE INDEX `Users_id_UNIQUE` (`UserId` ASC) VISIBLE,
   CONSTRAINT `fk_Confirmed_Students_Users1`
     FOREIGN KEY (`UserId`)
-    REFERENCES `LMS`.`User` (`Id`)
+    REFERENCES `learning-lantern-services`.`User` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`ConfirmedInstructor`
+-- Table `learning-lantern-services`.`ConfirmedInstructor`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`ConfirmedInstructor` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`ConfirmedInstructor` (
   `UserId` INT NOT NULL,
   `ConfirmationCode` NVARCHAR(10) NOT NULL,
   `ConfirmationDate` DATETIME NOT NULL,
@@ -65,16 +65,16 @@ CREATE TABLE IF NOT EXISTS `LMS`.`ConfirmedInstructor` (
   UNIQUE INDEX `Users_id_UNIQUE` (`UserId` ASC) VISIBLE,
   CONSTRAINT `fk_Confirmed_Instructor_Users1`
     FOREIGN KEY (`UserId`)
-    REFERENCES `LMS`.`User` (`Id`)
+    REFERENCES `learning-lantern-services`.`User` (`Id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`Classroom`
+-- Table `learning-lantern-services`.`Classroom`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`Classroom` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Classroom` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Name` NVARCHAR(50) NOT NULL,
   `Discription` NVARCHAR(250) NULL,
@@ -84,9 +84,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`StudentClassroom`
+-- Table `learning-lantern-services`.`StudentClassroom`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`StudentClassroom` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`StudentClassroom` (
   `StudentId` INT NOT NULL,
   `ClassroomId` INT NOT NULL,
   INDEX `fk_Student_ClassRoom_Confirmed_Students1_idx` (`StudentId` ASC) VISIBLE,
@@ -96,21 +96,21 @@ CREATE TABLE IF NOT EXISTS `LMS`.`StudentClassroom` (
   UNIQUE INDEX `ClassRoom_ID_UNIQUE` (`ClassroomId` ASC) VISIBLE,
   CONSTRAINT `fk_Student_ClassRoom_Confirmed_Students1`
     FOREIGN KEY (`StudentId`)
-    REFERENCES `LMS`.`ConfirmedStudent` (`UserId`)
+    REFERENCES `learning-lantern-services`.`ConfirmedStudent` (`UserId`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Student_ClassRoom_ClassRoom1`
     FOREIGN KEY (`ClassroomId`)
-    REFERENCES `LMS`.`Classroom` (`Id`)
+    REFERENCES `learning-lantern-services`.`Classroom` (`Id`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`InstructorClassroom`
+-- Table `learning-lantern-services`.`InstructorClassroom`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`InstructorClassroom` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`InstructorClassroom` (
   `InstructorId` INT NOT NULL,
   `ClassroomId` INT NOT NULL,
   INDEX `fk_Instructor_ClassRoom_Confirmed_Instructor1_idx` (`InstructorId` ASC) VISIBLE,
@@ -120,21 +120,21 @@ CREATE TABLE IF NOT EXISTS `LMS`.`InstructorClassroom` (
   UNIQUE INDEX `ClassRoom_ID_UNIQUE` (`ClassroomId` ASC) VISIBLE,
   CONSTRAINT `fk_Instructor_ClassRoom_Confirmed_Instructor1`
     FOREIGN KEY (`InstructorId`)
-    REFERENCES `LMS`.`ConfirmedInstructor` (`UserId`)
+    REFERENCES `learning-lantern-services`.`ConfirmedInstructor` (`UserId`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Instructor_ClassRoom_ClassRoom1`
     FOREIGN KEY (`ClassroomId`)
-    REFERENCES `LMS`.`Classroom` (`Id`)
+    REFERENCES `learning-lantern-services`.`Classroom` (`Id`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`Lecture`
+-- Table `learning-lantern-services`.`Lecture`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`Lecture` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Lecture` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Name` NVARCHAR(50) NOT NULL,
   `Discription` NVARCHAR(250) NULL,
@@ -148,21 +148,21 @@ CREATE TABLE IF NOT EXISTS `LMS`.`Lecture` (
   INDEX `fk_Lectures_Confirmed_Instructor1_idx` (`InstructorId` ASC) VISIBLE,
   CONSTRAINT `fk_Lectures_ClassRoom1`
     FOREIGN KEY (`ClassroomId`)
-    REFERENCES `LMS`.`Classroom` (`Id`)
+    REFERENCES `learning-lantern-services`.`Classroom` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Lectures_Confirmed_Instructor1`
     FOREIGN KEY (`InstructorId`)
-    REFERENCES `LMS`.`ConfirmedInstructor` (`UserId`)
+    REFERENCES `learning-lantern-services`.`ConfirmedInstructor` (`UserId`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`TextLesson`
+-- Table `learning-lantern-services`.`TextLesson`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`TextLesson` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`TextLesson` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Name` NVARCHAR(50) NOT NULL,
   `Discription` NVARCHAR(250) NULL,
@@ -175,21 +175,21 @@ CREATE TABLE IF NOT EXISTS `LMS`.`TextLesson` (
   INDEX `fk_Text_Lesson_Confirmed_Instructor1_idx` (`InstructorId` ASC) VISIBLE,
   CONSTRAINT `fk_Text_Lesson_ClassRoom1`
     FOREIGN KEY (`ClassroomId`)
-    REFERENCES `LMS`.`Classroom` (`Id`)
+    REFERENCES `learning-lantern-services`.`Classroom` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Text_Lesson_Confirmed_Instructor1`
     FOREIGN KEY (`InstructorId`)
-    REFERENCES `LMS`.`ConfirmedInstructor` (`UserId`)
+    REFERENCES `learning-lantern-services`.`ConfirmedInstructor` (`UserId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`Video`
+-- Table `learning-lantern-services`.`Video`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`Video` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Video` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Name` NVARCHAR(50) NOT NULL,
   `Discription` NVARCHAR(250) NULL,
@@ -200,21 +200,21 @@ CREATE TABLE IF NOT EXISTS `LMS`.`Video` (
   INDEX `fk_Video_Confirmed_Instructor1_idx` (`InstructorId` ASC) VISIBLE,
   CONSTRAINT `fk_Video_ClassRoom1`
     FOREIGN KEY (`ClassroomId`)
-    REFERENCES `LMS`.`Classroom` (`Id`)
+    REFERENCES `learning-lantern-services`.`Classroom` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Video_Confirmed_Instructor1`
     FOREIGN KEY (`InstructorId`)
-    REFERENCES `LMS`.`ConfirmedInstructor` (`UserId`)
+    REFERENCES `learning-lantern-services`.`ConfirmedInstructor` (`UserId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`Quiz`
+-- Table `learning-lantern-services`.`Quiz`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`Quiz` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Quiz` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Score` DECIMAL(3,2) NOT NULL,
   `Time` DATETIME NOT NULL,
@@ -227,21 +227,21 @@ CREATE TABLE IF NOT EXISTS `LMS`.`Quiz` (
   INDEX `fk_Quiz_Confirmed_Instructor1_idx` (`InstructorId` ASC) VISIBLE,
   CONSTRAINT `fk_Quiz_ClassRoom1`
     FOREIGN KEY (`ClassroomId`)
-    REFERENCES `LMS`.`Classroom` (`Id`)
+    REFERENCES `learning-lantern-services`.`Classroom` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Quiz_Confirmed_Instructor1`
     FOREIGN KEY (`InstructorId`)
-    REFERENCES `LMS`.`ConfirmedInstructor` (`UserId`)
+    REFERENCES `learning-lantern-services`.`ConfirmedInstructor` (`UserId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`Exam`
+-- Table `learning-lantern-services`.`Exam`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`Exam` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Exam` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Score` DECIMAL(3,2) NOT NULL,
   `Time` DATETIME NOT NULL,
@@ -255,21 +255,21 @@ CREATE TABLE IF NOT EXISTS `LMS`.`Exam` (
   INDEX `fk_Exam_ClassRoom1_idx` (`ClassroomId` ASC) VISIBLE,
   CONSTRAINT `fk_Exam_Confirmed_Instructor1`
     FOREIGN KEY (`InstructorId`)
-    REFERENCES `LMS`.`ConfirmedInstructor` (`UserId`)
+    REFERENCES `learning-lantern-services`.`ConfirmedInstructor` (`UserId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Exam_ClassRoom1`
     FOREIGN KEY (`ClassroomId`)
-    REFERENCES `LMS`.`Classroom` (`Id`)
+    REFERENCES `learning-lantern-services`.`Classroom` (`Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`ExamQuizes`
+-- Table `learning-lantern-services`.`ExamQuizes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`ExamQuizes` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`ExamQuizes` (
   `ExamId` INT NOT NULL,
   `QuizId` INT NOT NULL,
   PRIMARY KEY (`ExamId`, `QuizId`),
@@ -277,21 +277,21 @@ CREATE TABLE IF NOT EXISTS `LMS`.`ExamQuizes` (
   INDEX `fk_Quizes_of_Exam_Quiz1_idx` (`QuizId` ASC) VISIBLE,
   CONSTRAINT `fk_Quizes_of_Exam_Exam1`
     FOREIGN KEY (`ExamId`)
-    REFERENCES `LMS`.`Exam` (`Id`)
+    REFERENCES `learning-lantern-services`.`Exam` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Quizes_of_Exam_Quiz1`
     FOREIGN KEY (`QuizId`)
-    REFERENCES `LMS`.`Quiz` (`Id`)
+    REFERENCES `learning-lantern-services`.`Quiz` (`Id`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`StudentQuiz`
+-- Table `learning-lantern-services`.`StudentQuiz`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`StudentQuiz` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`StudentQuiz` (
   `QuizId` INT NOT NULL,
   `StudentId` INT NOT NULL,
   `StudentAnswer` NVARCHAR(500) NOT NULL,
@@ -300,42 +300,42 @@ CREATE TABLE IF NOT EXISTS `LMS`.`StudentQuiz` (
   INDEX `fk_Student_Quizes_Confirmed_Students1_idx` (`StudentId` ASC) VISIBLE,
   CONSTRAINT `fk_Student_Quizes_Quiz1`
     FOREIGN KEY (`QuizId`)
-    REFERENCES `LMS`.`Quiz` (`Id`)
+    REFERENCES `learning-lantern-services`.`Quiz` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Student_Quizes_Confirmed_Students1`
     FOREIGN KEY (`StudentId`)
-    REFERENCES `LMS`.`ConfirmedStudent` (`UserId`)
+    REFERENCES `learning-lantern-services`.`ConfirmedStudent` (`UserId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`StudentExam`
+-- Table `learning-lantern-services`.`StudentExam`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`StudentExam` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`StudentExam` (
   `StudentId` INT NOT NULL,
   `ExamId` INT NOT NULL,
   PRIMARY KEY (`StudentId`, `ExamId`),
   INDEX `fk_Student_Exam_Exam1_idx` (`ExamId` ASC) VISIBLE,
   CONSTRAINT `fk_Student_Exam_Confirmed_Students1`
     FOREIGN KEY (`StudentId`)
-    REFERENCES `LMS`.`ConfirmedStudent` (`UserId`)
+    REFERENCES `learning-lantern-services`.`ConfirmedStudent` (`UserId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Student_Exam_Exam1`
     FOREIGN KEY (`ExamId`)
-    REFERENCES `LMS`.`Exam` (`Id`)
+    REFERENCES `learning-lantern-services`.`Exam` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`Project`
+-- Table `learning-lantern-services`.`Project`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`Project` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Project` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Name` NVARCHAR(50) NOT NULL,
   `Discription` NVARCHAR(250) NULL,
@@ -347,37 +347,37 @@ CREATE TABLE IF NOT EXISTS `LMS`.`Project` (
   INDEX `fk_Project_ClassRoom1_idx` (`ClassroomId` ASC) VISIBLE,
   CONSTRAINT `fk_Project_ClassRoom1`
     FOREIGN KEY (`ClassroomId`)
-    REFERENCES `LMS`.`Classroom` (`Id`)
+    REFERENCES `learning-lantern-services`.`Classroom` (`Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`InstructorProject`
+-- Table `learning-lantern-services`.`InstructorProject`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`InstructorProject` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`InstructorProject` (
   `ProjectId` INT NOT NULL,
   `InstructorId` INT NOT NULL,
   PRIMARY KEY (`ProjectId`, `InstructorId`),
   INDEX `fk_Instructor_Project_Confirmed_Instructor1_idx` (`InstructorId` ASC) VISIBLE,
   CONSTRAINT `fk_Instructor_Project_Project1`
     FOREIGN KEY (`ProjectId`)
-    REFERENCES `LMS`.`Project` (`Id`)
+    REFERENCES `learning-lantern-services`.`Project` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Instructor_Project_Confirmed_Instructor1`
     FOREIGN KEY (`InstructorId`)
-    REFERENCES `LMS`.`ConfirmedInstructor` (`UserId`)
+    REFERENCES `learning-lantern-services`.`ConfirmedInstructor` (`UserId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`Attendance`
+-- Table `learning-lantern-services`.`Attendance`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`Attendance` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Attendance` (
   `QuizId` INT NOT NULL,
   `LectureId` INT NOT NULL,
   INDEX `fk_Attendance_Quiz1_idx` (`QuizId` ASC) VISIBLE,
@@ -385,21 +385,21 @@ CREATE TABLE IF NOT EXISTS `LMS`.`Attendance` (
   INDEX `fk_Attendance_Lecture1_idx` (`LectureId` ASC) VISIBLE,
   CONSTRAINT `fk_Attendance_Quiz1`
     FOREIGN KEY (`QuizId`)
-    REFERENCES `LMS`.`Quiz` (`Id`)
+    REFERENCES `learning-lantern-services`.`Quiz` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Attendance_Lecture1`
     FOREIGN KEY (`LectureId`)
-    REFERENCES `LMS`.`Lecture` (`Id`)
+    REFERENCES `learning-lantern-services`.`Lecture` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`Team`
+-- Table `learning-lantern-services`.`Team`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`Team` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Team` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Score` DECIMAL(3,2) NULL,
   `ProjectId` INT NOT NULL,
@@ -407,37 +407,37 @@ CREATE TABLE IF NOT EXISTS `LMS`.`Team` (
   INDEX `fk_team_Project1_idx` (`ProjectId` ASC) VISIBLE,
   CONSTRAINT `fk_team_Project1`
     FOREIGN KEY (`ProjectId`)
-    REFERENCES `LMS`.`Project` (`Id`)
+    REFERENCES `learning-lantern-services`.`Project` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`StudentTeam`
+-- Table `learning-lantern-services`.`StudentTeam`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`StudentTeam` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`StudentTeam` (
   `TeamId` INT NOT NULL,
   `StudentId` INT NOT NULL,
   PRIMARY KEY (`TeamId`, `StudentId`),
   INDEX `fk_Student_Team_Confirmed_Student1_idx` (`StudentId` ASC) VISIBLE,
   CONSTRAINT `fk_Student_Team_team1`
     FOREIGN KEY (`TeamId`)
-    REFERENCES `LMS`.`Team` (`Id`)
+    REFERENCES `learning-lantern-services`.`Team` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Student_Team_Confirmed_Student1`
     FOREIGN KEY (`StudentId`)
-    REFERENCES `LMS`.`ConfirmedStudent` (`UserId`)
+    REFERENCES `learning-lantern-services`.`ConfirmedStudent` (`UserId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`TimeStamp`
+-- Table `learning-lantern-services`.`TimeStamp`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`TimeStamp` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`TimeStamp` (
   `VideoId` INT NOT NULL,
   `Time` INT NOT NULL,
   `QuizId` INT NOT NULL,
@@ -445,21 +445,21 @@ CREATE TABLE IF NOT EXISTS `LMS`.`TimeStamp` (
   INDEX `fk_Time_stamp_Quiz1_idx` (`QuizId` ASC) VISIBLE,
   CONSTRAINT `fk_Timme_stamp_Video1`
     FOREIGN KEY (`VideoId`)
-    REFERENCES `LMS`.`Video` (`Id`)
+    REFERENCES `learning-lantern-services`.`Video` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Time_stamp_Quiz1`
     FOREIGN KEY (`QuizId`)
-    REFERENCES `LMS`.`Quiz` (`Id`)
+    REFERENCES `learning-lantern-services`.`Quiz` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`BackUpInstructor`
+-- Table `learning-lantern-services`.`BackUpInstructor`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`BackUpInstructor` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`BackUpInstructor` (
   `InstructorId` INT NOT NULL,
   `InstructorFirstName` NVARCHAR(50) NOT NULL,
   `InstructorLastName` NVARCHAR(50) NOT NULL,
@@ -467,37 +467,37 @@ CREATE TABLE IF NOT EXISTS `LMS`.`BackUpInstructor` (
   INDEX `fk_BackUpInstructor_ConfirmedInstructor1_idx` (`InstructorId` ASC) VISIBLE,
   CONSTRAINT `fk_BackUpInstructor_ConfirmedInstructor1`
     FOREIGN KEY (`InstructorId`)
-    REFERENCES `LMS`.`ConfirmedInstructor` (`UserId`)
+    REFERENCES `learning-lantern-services`.`ConfirmedInstructor` (`UserId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`StudentLesson`
+-- Table `learning-lantern-services`.`StudentLesson`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`StudentLesson` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`StudentLesson` (
   `StudentId` INT NOT NULL,
   `TextLessonId` INT NOT NULL,
   PRIMARY KEY (`StudentId`, `TextLessonId`),
   INDEX `fk_Student_Lesson_Text_Lesson1_idx` (`TextLessonId` ASC) VISIBLE,
   CONSTRAINT `fk_Student_Lesson_Confirmed_Student1`
     FOREIGN KEY (`StudentId`)
-    REFERENCES `LMS`.`ConfirmedStudent` (`UserId`)
+    REFERENCES `learning-lantern-services`.`ConfirmedStudent` (`UserId`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Student_Lesson_Text_Lesson1`
     FOREIGN KEY (`TextLessonId`)
-    REFERENCES `LMS`.`TextLesson` (`Id`)
+    REFERENCES `learning-lantern-services`.`TextLesson` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`Event`
+-- Table `learning-lantern-services`.`Event`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`Event` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Event` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Name` NVARCHAR(50) NOT NULL,
   `Discription` NVARCHAR(250) NULL,
@@ -508,16 +508,16 @@ CREATE TABLE IF NOT EXISTS `LMS`.`Event` (
   INDEX `fk_Events_ClassRoom1_idx` (`ClassroomId` ASC) VISIBLE,
   CONSTRAINT `fk_Events_ClassRoom1`
     FOREIGN KEY (`ClassroomId`)
-    REFERENCES `LMS`.`Classroom` (`Id`)
+    REFERENCES `learning-lantern-services`.`Classroom` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`Todo`
+-- Table `learning-lantern-services`.`Todo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`Todo` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Todo` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Name` NVARCHAR(50) NOT NULL,
   PRIMARY KEY (`Id`),
@@ -526,9 +526,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`Task`
+-- Table `learning-lantern-services`.`Task`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`Task` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Task` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Name` NVARCHAR(50) NOT NULL,
   `Discription` NVARCHAR(250) NULL,
@@ -538,16 +538,16 @@ CREATE TABLE IF NOT EXISTS `LMS`.`Task` (
   INDEX `fk_Task_TODO1_idx` (`TodoId` ASC) VISIBLE,
   CONSTRAINT `fk_Task_TODO1`
     FOREIGN KEY (`TodoId`)
-    REFERENCES `LMS`.`Todo` (`Id`)
+    REFERENCES `learning-lantern-services`.`Todo` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`Message`
+-- Table `learning-lantern-services`.`Message`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`Message` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Message` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Type` NVARCHAR(10) NOT NULL,
   `Body` NVARCHAR(250) NOT NULL,
@@ -561,21 +561,21 @@ CREATE TABLE IF NOT EXISTS `LMS`.`Message` (
   INDEX `fk_Messages_ClassRoom1_idx` (`ClassroomId` ASC) VISIBLE,
   CONSTRAINT `fk_Messages_User1`
     FOREIGN KEY (`UserId`)
-    REFERENCES `LMS`.`User` (`Id`)
+    REFERENCES `learning-lantern-services`.`User` (`Id`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Messages_ClassRoom1`
     FOREIGN KEY (`ClassroomId`)
-    REFERENCES `LMS`.`Classroom` (`Id`)
+    REFERENCES `learning-lantern-services`.`Classroom` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `LMS`.`TodoStudent`
+-- Table `learning-lantern-services`.`TodoStudent`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `LMS`.`TodoStudent` (
+CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`TodoStudent` (
   `TodoId` INT NOT NULL,
   `StudentId` INT NOT NULL,
   PRIMARY KEY (`TodoId`, `StudentId`),
@@ -583,12 +583,12 @@ CREATE TABLE IF NOT EXISTS `LMS`.`TodoStudent` (
   INDEX `fk_TODO_has_Confirmed_Student_TODO1_idx` (`TodoId` ASC) VISIBLE,
   CONSTRAINT `fk_TODO_has_Confirmed_Student_TODO1`
     FOREIGN KEY (`TodoId`)
-    REFERENCES `LMS`.`Todo` (`Id`)
+    REFERENCES `learning-lantern-services`.`Todo` (`Id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_TODO_has_Confirmed_Student_Confirmed_Student1`
     FOREIGN KEY (`StudentId`)
-    REFERENCES `LMS`.`ConfirmedStudent` (`UserId`)
+    REFERENCES `learning-lantern-services`.`ConfirmedStudent` (`UserId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
