@@ -1,2 +1,2 @@
 # Database
-Learning Lantern Database Implementation
+Learning Lantern Database
