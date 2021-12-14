@@ -13,17 +13,17 @@ USE [LearningLanternServices];
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[User]', N'U') IS NULL
     CREATE TABLE [LearningLanternServices].[dbo].[User]
-(
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
-    [Email] NVARCHAR(250) NOT NULL UNIQUE,
-    [FirstName] NVARCHAR(50) NOT NULL,
-    [LastName] NVARCHAR(50) NOT NULL,
-    [Password] NVARCHAR(50) NOT NULL,
-    [DateRegistered] DATETIME NOT NULL,
-    [Telephone] NVARCHAR(25) NOT NULL,
-    [Image] NVARCHAR(250) NULL,
-    [IsAdmin] BIT NOT NULL DEFAULT 0
-);
+    (
+        [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
+        [Email] NVARCHAR(250) NOT NULL UNIQUE,
+        [FirstName] NVARCHAR(50) NOT NULL,
+        [LastName] NVARCHAR(50) NOT NULL,
+        [Password] NVARCHAR(50) NOT NULL,
+        [DateRegistered] DATETIME NOT NULL,
+        [Telephone] NVARCHAR(25) NOT NULL,
+        [Image] NVARCHAR(250) NULL,
+        [IsAdmin] BIT NOT NULL DEFAULT 0
+    );
 
 
 -- -----------------------------------------------------
