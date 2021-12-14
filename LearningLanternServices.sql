@@ -1,36 +1,29 @@
--- MySQL Workbench Forward Engineering
-
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema learning-lantern-services
+-- Database LearningLanternServices
 -- -----------------------------------------------------
+IF DB_ID(N'[LearningLanternServices]') IS NULL
+    CREATE DATABASE [LearningLanternServices];
+
+USE [LearningLanternServices];
+
 
 -- -----------------------------------------------------
--- Schema learning-lantern-services
+-- Table [LearningLanternServices].[dbo].[User]
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `learning-lantern-services` DEFAULT CHARACTER SET utf8 ;
-USE `learning-lantern-services` ;
-
--- -----------------------------------------------------
--- Table `learning-lantern-services`.`User`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`User` (
-  `Id` INT NOT NULL AUTO_INCREMENT,
-  `Email` NVARCHAR(250) NOT NULL,
-  `FirstName` NVARCHAR(50) NOT NULL,
-  `LastName` NVARCHAR(50) NOT NULL,
-  `Password` NVARCHAR(50) NOT NULL,
-  `DateRegistered` DATETIME NOT NULL,
-  `Telephone` NVARCHAR(25) NOT NULL,
-  `Image` NVARCHAR(250) NULL,
-  `IsAdmin` BIT NOT NULL DEFAULT 0,
-  PRIMARY KEY (`Id`),
-  UNIQUE INDEX `id_UNIQUE` (`Id` ASC) VISIBLE,
-  UNIQUE INDEX `email_UNIQUE` (`Email` ASC) VISIBLE)
-ENGINE = InnoDB;
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[User]', N'U') IS NULL
+    CREATE TABLE [LearningLanternServices].[dbo].[User]
+(
+    [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
+    [Email] NVARCHAR(250) NOT NULL UNIQUE,
+    [FirstName] NVARCHAR(50) NOT NULL,
+    [LastName] NVARCHAR(50) NOT NULL,
+    [Password] NVARCHAR(50) NOT NULL,
+    [DateRegistered] DATETIME NOT NULL,
+    [Telephone] NVARCHAR(25) NOT NULL,
+    [Image] NVARCHAR(250) NULL,
+    [IsAdmin] BIT NOT NULL DEFAULT 0
+);
 
 
 -- -----------------------------------------------------
