@@ -27,53 +27,49 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[User]', N'U') IS NULL
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`ConfirmedStudent`
+-- Table [LearningLanternServices].[dbo].[ConfirmedStudent]
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`ConfirmedStudent` (
-  `UserId` INT NOT NULL,
-  `ConfirmationCode` NVARCHAR(10) NOT NULL,
-  `ConfirmationDate` DATETIME NOT NULL,
-  UNIQUE INDEX `confirmationCode_UNIQUE` (`ConfirmationCode` ASC) VISIBLE,
-  INDEX `fk_Confirmed_Students_Users1_idx` (`UserId` ASC) VISIBLE,
-  PRIMARY KEY (`UserId`),
-  UNIQUE INDEX `Users_id_UNIQUE` (`UserId` ASC) VISIBLE,
-  CONSTRAINT `fk_Confirmed_Students_Users1`
-    FOREIGN KEY (`UserId`)
-    REFERENCES `learning-lantern-services`.`User` (`Id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[ConfirmedStudent]', N'U') IS NULL
+    CREATE TABLE [LearningLanternServices].[dbo].[ConfirmedStudent]
+    (
+        [UserId] INT NOT NULL PRIMARY KEY,
+        [ConfirmationCode] NVARCHAR(10) NOT NULL UNIQUE,
+        [ConfirmationDate] DATETIME NOT NULL,
+        CONSTRAINT [FK_ConfirmedStudents_Users]
+        FOREIGN KEY([UserId])
+        REFERENCES [LearningLanternServices].[dbo].[User]([Id])
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+    );
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`ConfirmedInstructor`
+-- Table [LearningLanternServices].[dbo].[ConfirmedInstructor]
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`ConfirmedInstructor` (
-  `UserId` INT NOT NULL,
-  `ConfirmationCode` NVARCHAR(10) NOT NULL,
-  `ConfirmationDate` DATETIME NOT NULL,
-  UNIQUE INDEX `Confirmation_code_UNIQUE` (`ConfirmationCode` ASC) VISIBLE,
-  INDEX `fk_Confirmed_Instructor_Users1_idx` (`UserId` ASC) VISIBLE,
-  PRIMARY KEY (`UserId`),
-  UNIQUE INDEX `Users_id_UNIQUE` (`UserId` ASC) VISIBLE,
-  CONSTRAINT `fk_Confirmed_Instructor_Users1`
-    FOREIGN KEY (`UserId`)
-    REFERENCES `learning-lantern-services`.`User` (`Id`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[ConfirmedInstructor]', N'U') IS NULL
+    CREATE TABLE [LearningLanternServices].[dbo].[ConfirmedInstructor]
+    (
+        [UserId] INT NOT NULL PRIMARY KEY,
+        [ConfirmationCode] NVARCHAR(10) NOT NULL UNIQUE,
+        [ConfirmationDate] DATETIME NOT NULL,
+        CONSTRAINT [FK_ConfirmedInstructors_Users]
+        FOREIGN KEY ([UserId])
+        REFERENCES [LearningLanternServices].[dbo].[User]([Id])
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+    );
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Classroom`
+-- Table [LearningLanternServices].[dbo].[Classroom]
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Classroom` (
-  `Id` INT NOT NULL AUTO_INCREMENT,
-  `Name` NVARCHAR(50) NOT NULL,
-  `Discription` NVARCHAR(250) NULL,
-  PRIMARY KEY (`Id`),
-  UNIQUE INDEX `ID_UNIQUE` (`Id` ASC) VISIBLE)
-ENGINE = InnoDB;
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Classroom]', N'U') IS NULL
+    CREATE TABLE [LearningLanternServices].[dbo].[Classroom]
+    (
+        [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
+        [Name] NVARCHAR(50) NOT NULL,
+        [Discription] NVARCHAR(250) NULL,
+    );
 
 
 -- -----------------------------------------------------
