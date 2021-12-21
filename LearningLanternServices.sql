@@ -241,8 +241,7 @@ CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Exam` (
     FOREIGN KEY (`ClassroomId`)
     REFERENCES `learning-lantern-services`.`Classroom` (`Id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
