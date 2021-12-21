@@ -355,223 +355,219 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Attendance`
+-- Table [LearningLanternServices].[dbo].[Attendance]
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Attendance` (
-  `QuizId` INT NOT NULL,
-  `LectureId` INT NOT NULL,
-  INDEX `fk_Attendance_Quiz1_idx` (`QuizId` ASC) VISIBLE,
-  PRIMARY KEY (`QuizId`, `LectureId`),
-  INDEX `fk_Attendance_Lecture1_idx` (`LectureId` ASC) VISIBLE,
-  CONSTRAINT `fk_Attendance_Quiz1`
-    FOREIGN KEY (`QuizId`)
-    REFERENCES `learning-lantern-services`.`Quiz` (`Id`)
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Attendance]', N'U') IS NULL
+CREATE TABLE [LearningLanternServices].[dbo].[Attendance](
+  [QuizId] INT NOT NULL PRIMARY KEY,
+  [LectureId] INT NOT NULL PRIMARY KEY,
+  CONSTRAINT [fk_Attendance_Quiz1]
+    FOREIGN KEY ([QuizId])
+    REFERENCES [LearningLanternServices].[dbo].[Quiz]([Id])
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_Attendance_Lecture1`
-    FOREIGN KEY (`LectureId`)
-    REFERENCES `learning-lantern-services`.`Lecture` (`Id`)
+  CONSTRAINT [fk_Attendance_Lecture1]
+    FOREIGN KEY ([LectureId])
+    REFERENCES [LearningLanternServices].[dbo].[Lecture]([Id])
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE
+);
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Team`
+-- Table [LearningLanternServices].[dbo].[Team]
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Team` (
-  `Id` INT NOT NULL AUTO_INCREMENT,
-  `Score` DECIMAL(3,2) NULL,
-  `ProjectId` INT NOT NULL,
-  PRIMARY KEY (`Id`),
-  INDEX `fk_team_Project1_idx` (`ProjectId` ASC) VISIBLE,
-  CONSTRAINT `fk_team_Project1`
-    FOREIGN KEY (`ProjectId`)
-    REFERENCES `learning-lantern-services`.`Project` (`Id`)
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Team]', N'U') IS NULL
+CREATE TABLE [LearningLanternServices].[dbo].[Team](
+  [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
+  [Score] DECIMAL(3,2) NULL,
+  [ProjectId] INT NOT NULL,
+  CONSTRAINT [fk_team_Project1]
+    FOREIGN KEY ([ProjectId])
+    REFERENCES [LearningLanternServices].[dbo].[Project]([Id])
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE
+);
 
-
--- -----------------------------------------------------
--- Table `learning-lantern-services`.`StudentTeam`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`StudentTeam` (
-  `TeamId` INT NOT NULL,
-  `StudentId` INT NOT NULL,
-  PRIMARY KEY (`TeamId`, `StudentId`),
-  INDEX `fk_Student_Team_Confirmed_Student1_idx` (`StudentId` ASC) VISIBLE,
-  CONSTRAINT `fk_Student_Team_team1`
-    FOREIGN KEY (`TeamId`)
-    REFERENCES `learning-lantern-services`.`Team` (`Id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_Student_Team_Confirmed_Student1`
-    FOREIGN KEY (`StudentId`)
-    REFERENCES `learning-lantern-services`.`ConfirmedStudent` (`UserId`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`TimeStamp`
+-- Table `[LearningLanternServices].[dbo].[StudentTeam]
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`TimeStamp` (
-  `VideoId` INT NOT NULL,
-  `Time` INT NOT NULL,
-  `QuizId` INT NOT NULL,
-  PRIMARY KEY (`VideoId`, `Time`),
-  INDEX `fk_Time_stamp_Quiz1_idx` (`QuizId` ASC) VISIBLE,
-  CONSTRAINT `fk_Timme_stamp_Video1`
-    FOREIGN KEY (`VideoId`)
-    REFERENCES `learning-lantern-services`.`Video` (`Id`)
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[StudentTeam]', N'U') IS NULL
+CREATE TABLE [LearningLanternServices].[dbo].[StudentTeam] (
+  [TeamId] INT NOT NULL PRIMARY KEY,
+  [StudentId] INT NOT NULL PRIMARY KEY,
+  CONSTRAINT [fk_Student_Team_team1]
+    FOREIGN KEY ([TeamId])
+    REFERENCES [LearningLanternServices].[dbo].[Team]([Id])
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_Time_stamp_Quiz1`
-    FOREIGN KEY (`QuizId`)
-    REFERENCES `learning-lantern-services`.`Quiz` (`Id`)
+  CONSTRAINT [fk_Student_Team_Confirmed_Student1]
+    FOREIGN KEY ([StudentId])
+    REFERENCES [LearningLanternServices].[dbo].[ConfirmedStudent]([UserId])
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE
+	
+);
+
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`BackUpInstructor`
+-- Table [LearningLanternServices].[dbo].[TimeStamp]
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`BackUpInstructor` (
-  `InstructorId` INT NOT NULL,
-  `InstructorFirstName` NVARCHAR(50) NOT NULL,
-  `InstructorLastName` NVARCHAR(50) NOT NULL,
-  PRIMARY KEY (`InstructorId`),
-  INDEX `fk_BackUpInstructor_ConfirmedInstructor1_idx` (`InstructorId` ASC) VISIBLE,
-  CONSTRAINT `fk_BackUpInstructor_ConfirmedInstructor1`
-    FOREIGN KEY (`InstructorId`)
-    REFERENCES `learning-lantern-services`.`ConfirmedInstructor` (`UserId`)
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[TimeStamp]', N'U') IS NULL
+-- SQLINES LICENSE FOR EVALUATION USE ONLY
+CREATE TABLE  [LearningLanternServices].[dbo].[TimeStamp] (
+  [VideoId] INT NOT NULL PRIMARY KEY,
+  [Time] INT NOT NULL PRIMARY KEY,
+  [QuizId] INT NOT NULL,
+  CONSTRAINT [fk_Timme_stamp_Video1]
+    FOREIGN KEY ([VideoId])
+    REFERENCES [LearningLanternServices].[dbo].[Video] ([Id])
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT [fk_Time_stamp_Quiz1]
+    FOREIGN KEY ([QuizId])
+    REFERENCES [LearningLanternServices].[dbo].[Quiz] ([Id])
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+    );
+
+
+-- -----------------------------------------------------
+-- Table `[LearningLanternServices].[dbo].[BackUpInstructor]
+-- -----------------------------------------------------
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[BackUpInstructor]', N'U') IS NULL
+-- SQLINES LICENSE FOR EVALUATION USE ONLY
+CREATE TABLE  [LearningLanternServices].[dbo].[BackUpInstructor] (
+  [InstructorId] INT NOT NULL PRIMARY KEY,
+  [InstructorFirstName] NVARCHAR(50) NOT NULL,
+  [InstructorLastName] NVARCHAR(50) NOT NULL,
+  CONSTRAINT [fk_BackUpInstructor_ConfirmedInstructor1]
+    FOREIGN KEY ([InstructorId])
+    REFERENCES [LearningLanternServices].[dbo].[ConfirmedInstructor] ([UserId])
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION
+    
+);
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`StudentLesson`
+-- Table [LearningLanternServices].[dbo].[StudentLesson]
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`StudentLesson` (
-  `StudentId` INT NOT NULL,
-  `TextLessonId` INT NOT NULL,
-  PRIMARY KEY (`StudentId`, `TextLessonId`),
-  INDEX `fk_Student_Lesson_Text_Lesson1_idx` (`TextLessonId` ASC) VISIBLE,
-  CONSTRAINT `fk_Student_Lesson_Confirmed_Student1`
-    FOREIGN KEY (`StudentId`)
-    REFERENCES `learning-lantern-services`.`ConfirmedStudent` (`UserId`)
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[StudentLesson]', N'U') IS NULL
+-- SQLINES LICENSE FOR EVALUATION USE ONLY
+CREATE TABLE  [LearningLanternServices].[dbo].[StudentLesson](
+  [StudentId] INT NOT NULL PRIMARY KEY,
+  [TextLessonId] INT NOT NULL PRIMARY KEY,
+  CONSTRAINT [fk_Student_Lesson_Confirmed_Student1]
+    FOREIGN KEY ([StudentId])
+    REFERENCES [LearningLanternServices].[dbo].[ConfirmedStudent] ([UserId])
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_Student_Lesson_Text_Lesson1`
-    FOREIGN KEY (`TextLessonId`)
-    REFERENCES `learning-lantern-services`.`TextLesson` (`Id`)
+  CONSTRAINT [fk_Student_Lesson_Text_Lesson1]
+    FOREIGN KEY ([TextLessonId])
+    REFERENCES [LearningLanternServices].[dbo].[TextLesson] ([Id])
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE
+);
+
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Event`
+-- Table [LearningLanternServices].[dbo].[Event]
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Event` (
-  `Id` INT NOT NULL AUTO_INCREMENT,
-  `Name` NVARCHAR(50) NOT NULL,
-  `Discription` NVARCHAR(250) NULL,
-  `StartDate` DATETIME NOT NULL,
-  `EndDate` DATETIME NOT NULL,
-  `ClassroomId` INT NOT NULL,
-  PRIMARY KEY (`Id`),
-  INDEX `fk_Events_ClassRoom1_idx` (`ClassroomId` ASC) VISIBLE,
-  CONSTRAINT `fk_Events_ClassRoom1`
-    FOREIGN KEY (`ClassroomId`)
-    REFERENCES `learning-lantern-services`.`Classroom` (`Id`)
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Event]', N'U') IS NULL
+-- SQLINES LICENSE FOR EVALUATION USE ONLY
+CREATE TABLE  [LearningLanternServices].[dbo].[Event](
+  [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
+  [Name] NVARCHAR(50) NOT NULL,
+  [Discription] NVARCHAR(250) NULL,
+  [StartDate] DATETIME NOT NULL,
+  [EndDate] DATETIME NOT NULL,
+  [ClassroomId] INT NOT NULL,
+  CONSTRAINT [fk_Events_ClassRoom1]
+    FOREIGN KEY ([ClassroomId])
+    REFERENCES  [LearningLanternServices].[dbo].[Classroom] ([Id])
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE
+);
 
-
--- -----------------------------------------------------
--- Table `learning-lantern-services`.`Todo`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Todo` (
-  `Id` INT NOT NULL AUTO_INCREMENT,
-  `Name` NVARCHAR(50) NOT NULL,
-  PRIMARY KEY (`Id`),
-  UNIQUE INDEX `id_UNIQUE` (`Id` ASC) VISIBLE)
-ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Task`
+-- Table [LearningLanternServices].[dbo].[Todo]
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Task` (
-  `Id` INT NOT NULL AUTO_INCREMENT,
-  `Name` NVARCHAR(50) NOT NULL,
-  `Discription` NVARCHAR(250) NULL,
-  `DueDate` DATETIME NULL,
-  `TodoId` INT NOT NULL,
-  PRIMARY KEY (`Id`),
-  INDEX `fk_Task_TODO1_idx` (`TodoId` ASC) VISIBLE,
-  CONSTRAINT `fk_Task_TODO1`
-    FOREIGN KEY (`TodoId`)
-    REFERENCES `learning-lantern-services`.`Todo` (`Id`)
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Todo]', N'U') IS NULL
+CREATE TABLE  [LearningLanternServices].[dbo].[Todo](
+  [Id] INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+  [Name] NVARCHAR(50) NOT NULL,
+  
+);
+
+
+-- -----------------------------------------------------
+-- Table [LearningLanternServices].[dbo].[Task]
+-- -----------------------------------------------------
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Task]', N'U') IS NULL
+CREATE TABLE  [LearningLanternServices].[dbo].[Task](
+  [Id] INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+  [Name] NVARCHAR(50) NOT NULL,
+  [Discription] NVARCHAR(250) NULL,
+  [DueDate] DATETIME NULL,
+  [TodoId] INT NOT NULL,
+  CONSTRAINT [fk_Task_TODO1]
+    FOREIGN KEY ([TodoId])
+    REFERENCES [LearningLanternServices].[dbo].[Todo] ([Id])
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE
+);
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Message`
+-- Table [LearningLanternServices].[dbo].[Message]
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Message` (
-  `Id` INT NOT NULL AUTO_INCREMENT,
-  `Type` NVARCHAR(10) NOT NULL,
-  `Body` NVARCHAR(250) NOT NULL,
-  `Replay` INT NULL DEFAULT NULL,
-  `Date` DATETIME NOT NULL,
-  `UserId` INT NOT NULL,
-  `ClassroomId` INT NOT NULL,
-  PRIMARY KEY (`Id`),
-  UNIQUE INDEX `ID_UNIQUE` (`Id` ASC) VISIBLE,
-  INDEX `fk_Messages_User1_idx` (`UserId` ASC) VISIBLE,
-  INDEX `fk_Messages_ClassRoom1_idx` (`ClassroomId` ASC) VISIBLE,
-  CONSTRAINT `fk_Messages_User1`
-    FOREIGN KEY (`UserId`)
-    REFERENCES `learning-lantern-services`.`User` (`Id`)
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Message]', N'U') IS NULL
+CREATE TABLE  [LearningLanternServices].[dbo].[Message](
+  [Id] INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+  [Type] NVARCHAR(10) NOT NULL,
+  [Body] NVARCHAR(250) NOT NULL,
+  [Replay] INT NULL DEFAULT NULL,
+  [Date] DATETIME NOT NULL,
+  [UserId] INT NOT NULL,
+  [ClassroomId] INT NOT NULL,
+  CONSTRAINT [fk_Messages_User1]
+    FOREIGN KEY ([UserId])
+    REFERENCES [LearningLanternServices].[dbo].[User] ([Id])
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_Messages_ClassRoom1`
-    FOREIGN KEY (`ClassroomId`)
-    REFERENCES `learning-lantern-services`.`Classroom` (`Id`)
+  CONSTRAINT [fk_Messages_ClassRoom1]
+    FOREIGN KEY ([ClassroomId])
+    REFERENCES [LearningLanternServices].[dbo].[Classroom] ([Id])
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
+    ON UPDATE CASCADE
+);
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`TodoStudent`
+-- Table [LearningLanternServices].[dbo].[TodoStudent]
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`TodoStudent` (
-  `TodoId` INT NOT NULL,
-  `StudentId` INT NOT NULL,
-  PRIMARY KEY (`TodoId`, `StudentId`),
-  INDEX `fk_TODO_has_Confirmed_Student_Confirmed_Student1_idx` (`StudentId` ASC) VISIBLE,
-  INDEX `fk_TODO_has_Confirmed_Student_TODO1_idx` (`TodoId` ASC) VISIBLE,
-  CONSTRAINT `fk_TODO_has_Confirmed_Student_TODO1`
-    FOREIGN KEY (`TodoId`)
-    REFERENCES `learning-lantern-services`.`Todo` (`Id`)
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[TodoStudent]', N'U') IS NULL
+CREATE TABLE  [LearningLanternServices].[dbo].[TodoStudent](
+  [TodoId] INT NOT NULL PRIMARY KEY,
+  [StudentId] INT NOT NULL PRIMARY KEY,
+  CONSTRAINT [fk_TODO_has_Confirmed_Student_TODO1]
+    FOREIGN KEY ([TodoId])
+    REFERENCES [LearningLanternServices].[dbo].[Todo] ([Id])
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_TODO_has_Confirmed_Student_Confirmed_Student1`
-    FOREIGN KEY (`StudentId`)
-    REFERENCES `learning-lantern-services`.`ConfirmedStudent` (`UserId`)
+  CONSTRAINT [fk_TODO_has_Confirmed_Student_Confirmed_Student1]
+    FOREIGN KEY ([StudentId])
+    REFERENCES [LearningLanternServices].[dbo].[ConfirmedStudent] ([UserId])
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION
+);
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
