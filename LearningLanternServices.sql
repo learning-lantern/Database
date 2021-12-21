@@ -192,30 +192,29 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Video]', N'U') IS NULL
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Quiz`
+-- Table [LearningLanternServices].[dbo].[Quiz]
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `learning-lantern-services`.`Quiz` (
-  `Id` INT NOT NULL AUTO_INCREMENT,
-  `Score` DECIMAL(3,2) NOT NULL,
-  `Time` DATETIME NOT NULL,
-  `IsAttendance` BIT NOT NULL,
-  `Answer` NVARCHAR(10) NOT NULL,
-  `ClassroomId` INT NOT NULL,
-  `InstructorId` INT NOT NULL,
-  PRIMARY KEY (`Id`),
-  INDEX `fk_Quiz_ClassRoom1_idx` (`ClassroomId` ASC) VISIBLE,
-  INDEX `fk_Quiz_Confirmed_Instructor1_idx` (`InstructorId` ASC) VISIBLE,
-  CONSTRAINT `fk_Quiz_ClassRoom1`
-    FOREIGN KEY (`ClassroomId`)
-    REFERENCES `learning-lantern-services`.`Classroom` (`Id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_Quiz_Confirmed_Instructor1`
-    FOREIGN KEY (`InstructorId`)
-    REFERENCES `learning-lantern-services`.`ConfirmedInstructor` (`UserId`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Quiz]', N'U') IS NULL
+    CREATE TABLE [LearningLanternServices].[dbo].[Quiz]
+    (
+        [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1) ,
+        [Score] DECIMAL(3,2) NOT NULL,
+        [Time] DATETIME NOT NULL,
+        [IsAttendance] BIT NOT NULL,
+        [Answer] NVARCHAR(10) NOT NULL,
+        [ClassroomId] INT NOT NULL,
+        [InstructorId] INT NOT NULL,
+        CONSTRAINT [FK_Quiz_ClassRoom]
+            FOREIGN KEY ([ClassroomId])
+            REFERENCES [LearningLanternServices].[dbo].[Classroom] ([Id])
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+        CONSTRAINT [FK_Quiz_ConfirmedInstructor]
+            FOREIGN KEY ([InstructorId])
+            REFERENCES [LearningLanternServices].[dbo].[ConfirmedInstructor] ([UserId])
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
+    );
 
 
 -- -----------------------------------------------------
