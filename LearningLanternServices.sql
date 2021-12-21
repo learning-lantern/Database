@@ -364,7 +364,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Attendance`
+-- Table [LearningLanternServices].[dbo].[Attendance]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Attendance]', N'U') IS NULL
 CREATE TABLE [LearningLanternServices].[dbo].[Attendance](
@@ -384,7 +384,7 @@ CREATE TABLE [LearningLanternServices].[dbo].[Attendance](
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Team`
+-- Table [LearningLanternServices].[dbo].[Team]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Team]', N'U') IS NULL
 CREATE TABLE [LearningLanternServices].[dbo].[Team](
@@ -401,7 +401,7 @@ CREATE TABLE [LearningLanternServices].[dbo].[Team](
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`StudentTeam`
+-- Table `[LearningLanternServices].[dbo].[StudentTeam]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[StudentTeam]', N'U') IS NULL
 CREATE TABLE [LearningLanternServices].[dbo].[StudentTeam] (
@@ -423,7 +423,7 @@ CREATE TABLE [LearningLanternServices].[dbo].[StudentTeam] (
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`TimeStamp`
+-- Table [LearningLanternServices].[dbo].[TimeStamp]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[TimeStamp]', N'U') IS NULL
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
@@ -445,7 +445,7 @@ CREATE TABLE  [LearningLanternServices].[dbo].[TimeStamp] (
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`BackUpInstructor`
+-- Table `[LearningLanternServices].[dbo].[BackUpInstructor]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[BackUpInstructor]', N'U') IS NULL
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
@@ -463,7 +463,7 @@ CREATE TABLE  [LearningLanternServices].[dbo].[BackUpInstructor] (
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`StudentLesson`
+-- Table [LearningLanternServices].[dbo].[StudentLesson]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[StudentLesson]', N'U') IS NULL
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
@@ -485,7 +485,7 @@ CREATE TABLE  [LearningLanternServices].[dbo].[StudentLesson](
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Event`
+-- Table [LearningLanternServices].[dbo].[Event]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Event]', N'U') IS NULL
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
@@ -506,7 +506,7 @@ CREATE TABLE  [LearningLanternServices].[dbo].[Event](
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Todo`
+-- Table [LearningLanternServices].[dbo].[Todo]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Todo]', N'U') IS NULL
 CREATE TABLE  [LearningLanternServices].[dbo].[Todo](
@@ -517,7 +517,7 @@ CREATE TABLE  [LearningLanternServices].[dbo].[Todo](
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Task`
+-- Table [LearningLanternServices].[dbo].[Task]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Task]', N'U') IS NULL
 CREATE TABLE  [LearningLanternServices].[dbo].[Task](
@@ -535,7 +535,7 @@ CREATE TABLE  [LearningLanternServices].[dbo].[Task](
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Message`
+-- Table [LearningLanternServices].[dbo].[Message]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Message]', N'U') IS NULL
 CREATE TABLE  [LearningLanternServices].[dbo].[Message](
@@ -559,7 +559,7 @@ CREATE TABLE  [LearningLanternServices].[dbo].[Message](
 );
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`TodoStudent`
+-- Table [LearningLanternServices].[dbo].[TodoStudent]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[TodoStudent]', N'U') IS NULL
 CREATE TABLE  [LearningLanternServices].[dbo].[TodoStudent](
