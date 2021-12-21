@@ -15,13 +15,13 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[User]', N'U') IS NULL
     CREATE TABLE [LearningLanternServices].[dbo].[User]
     (
         [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
-        [Email] NVARCHAR(250) NOT NULL UNIQUE,
+        [Email] VARCHAR(250) NOT NULL UNIQUE,
         [FirstName] NVARCHAR(50) NOT NULL,
         [LastName] NVARCHAR(50) NOT NULL,
-        [Password] NVARCHAR(50) NOT NULL,
+        [Password] VARCHAR(50) NOT NULL,
         [DateRegistered] DATETIME NOT NULL,
-        [Telephone] NVARCHAR(25) NOT NULL,
-        [Image] NVARCHAR(250) NULL,
+        [Telephone] VARCHAR(25) NOT NULL UNIQUE,
+        [Image] VARCHAR(250) NULL,
         [IsAdmin] BIT NOT NULL DEFAULT 0
     );
 
@@ -33,7 +33,7 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[ConfirmedStudent]', N'U') IS NUL
     CREATE TABLE [LearningLanternServices].[dbo].[ConfirmedStudent]
     (
         [UserId] INT NOT NULL PRIMARY KEY,
-        [ConfirmationCode] NVARCHAR(10) NOT NULL UNIQUE,
+        [ConfirmationCode] VARCHAR(10) NOT NULL UNIQUE,
         [ConfirmationDate] DATETIME NOT NULL,
         CONSTRAINT [FK_ConfirmedStudent_User]
             FOREIGN KEY([UserId])
@@ -50,7 +50,7 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[ConfirmedInstructor]', N'U') IS 
     CREATE TABLE [LearningLanternServices].[dbo].[ConfirmedInstructor]
     (
         [UserId] INT NOT NULL PRIMARY KEY,
-        [ConfirmationCode] NVARCHAR(10) NOT NULL UNIQUE,
+        [ConfirmationCode] VARCHAR(10) NOT NULL UNIQUE,
         [ConfirmationDate] DATETIME NOT NULL,
         CONSTRAINT [FK_ConfirmedInstructor_User]
             FOREIGN KEY ([UserId])
@@ -538,13 +538,13 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Message]', N'U') IS NULL
     CREATE TABLE  [LearningLanternServices].[dbo].[Message]
     (
         [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
-        [Type] NVARCHAR(10) NOT NULL,
-        [Body] NVARCHAR(250) NOT NULL,
+        [Type] VARCHAR(10) NOT NULL,
+        [Body] VARCHAR(250) NOT NULL,
         [Replay] INT NULL DEFAULT NULL,
         [Date] DATETIME NOT NULL,
         [UserId] INT NOT NULL,
         [ClassroomId] INT NOT NULL,
-        CONSTRAINT [FL_Message_User]
+        CONSTRAINT [FK_Message_User]
             FOREIGN KEY ([UserId])
             REFERENCES [LearningLanternServices].[dbo].[User] ([Id])
             ON DELETE NO ACTION
