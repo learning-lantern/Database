@@ -1,6 +1,6 @@
 
 -- -----------------------------------------------------
--- Database LearningLanternServices
+-- Database [LearningLanternServices]
 -- -----------------------------------------------------
 IF DB_ID(N'[LearningLanternServices]') IS NULL
     CREATE DATABASE [LearningLanternServices];
