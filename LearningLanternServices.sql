@@ -359,7 +359,6 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[InstructorProject]', N'U') IS NU
 -- Table [LearningLanternServices].[dbo].[Attendance]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Attendance]', N'U') IS NULL
-<<<<<<< HEAD
     CREATE TABLE [LearningLanternServices].[dbo].[Attendance]
     (
         [QuizId] INT NOT NULL,
@@ -376,29 +375,12 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Attendance]', N'U') IS NULL
             ON DELETE CASCADE
             ON UPDATE CASCADE
     );
-=======
-CREATE TABLE [LearningLanternServices].[dbo].[Attendance](
-  [QuizId] INT NOT NULL PRIMARY KEY,
-  [LectureId] INT NOT NULL PRIMARY KEY,
-  CONSTRAINT [FK_Attendance_Quiz]
-    FOREIGN KEY ([QuizId])
-    REFERENCES [LearningLanternServices].[dbo].[Quiz]([Id])
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT [FK_Attendance_Lecture]
-    FOREIGN KEY ([LectureId])
-    REFERENCES [LearningLanternServices].[dbo].[Lecture]([Id])
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-);
->>>>>>> main
 
 
 -- -----------------------------------------------------
 -- Table [LearningLanternServices].[dbo].[Team]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Team]', N'U') IS NULL
-<<<<<<< HEAD
     CREATE TABLE [LearningLanternServices].[dbo].[Team]
     (
         [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
@@ -410,26 +392,12 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Team]', N'U') IS NULL
             ON DELETE CASCADE
             ON UPDATE CASCADE
     );
-=======
-CREATE TABLE [LearningLanternServices].[dbo].[Team](
-  [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
-  [Score] DECIMAL(3,2) NULL,
-  [ProjectId] INT NOT NULL,
-  CONSTRAINT [FK_team_Project]
-    FOREIGN KEY ([ProjectId])
-    REFERENCES [LearningLanternServices].[dbo].[Project]([Id])
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-);
->>>>>>> main
-
 
 
 -- -----------------------------------------------------
 -- Table [LearningLanternServices].[dbo].[StudentTeam]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[StudentTeam]', N'U') IS NULL
-<<<<<<< HEAD
     CREATE TABLE [LearningLanternServices].[dbo].[StudentTeam]
     (
         [TeamId] INT NOT NULL,
@@ -446,31 +414,12 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[StudentTeam]', N'U') IS NULL
             ON DELETE CASCADE
             ON UPDATE CASCADE
     );
-=======
-CREATE TABLE [LearningLanternServices].[dbo].[StudentTeam] (
-  [TeamId] INT NOT NULL PRIMARY KEY,
-  [StudentId] INT NOT NULL PRIMARY KEY,
-  CONSTRAINT [FK_StudentTeam_Team]
-    FOREIGN KEY ([TeamId])
-    REFERENCES [LearningLanternServices].[dbo].[Team]([Id])
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT [FK_StudentTeam_ConfirmedStudent]
-    FOREIGN KEY ([StudentId])
-    REFERENCES [LearningLanternServices].[dbo].[ConfirmedStudent]([UserId])
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-	
-);
->>>>>>> main
-
 
 
 -- -----------------------------------------------------
 -- Table [LearningLanternServices].[dbo].[TimeStamp]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[TimeStamp]', N'U') IS NULL
-<<<<<<< HEAD
     CREATE TABLE  [LearningLanternServices].[dbo].[TimeStamp] 
     (
         [VideoId] INT NOT NULL,
@@ -487,23 +436,6 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[TimeStamp]', N'U') IS NULL
             REFERENCES [LearningLanternServices].[dbo].[Quiz] ([Id])
             ON DELETE CASCADE
             ON UPDATE CASCADE
-=======
--- SQLINES LICENSE FOR EVALUATION USE ONLY
-CREATE TABLE  [LearningLanternServices].[dbo].[TimeStamp] (
-  [VideoId] INT NOT NULL PRIMARY KEY,
-  [Time] INT NOT NULL PRIMARY KEY,
-  [QuizId] INT NOT NULL,
-  CONSTRAINT [FK_TimmeStamp_Video]
-    FOREIGN KEY ([VideoId])
-    REFERENCES [LearningLanternServices].[dbo].[Video] ([Id])
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT [FK_TimeStamp_Quiz]
-    FOREIGN KEY ([QuizId])
-    REFERENCES [LearningLanternServices].[dbo].[Quiz] ([Id])
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
->>>>>>> main
     );
 
 
@@ -511,7 +443,6 @@ CREATE TABLE  [LearningLanternServices].[dbo].[TimeStamp] (
 -- Table [LearningLanternServices].[dbo].[BackUpInstructor]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[BackUpInstructor]', N'U') IS NULL
-<<<<<<< HEAD
     CREATE TABLE  [LearningLanternServices].[dbo].[BackUpInstructor]
     (
         [InstructorId] INT NOT NULL PRIMARY KEY,
@@ -523,20 +454,6 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[BackUpInstructor]', N'U') IS NUL
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
     );
-=======
--- SQLINES LICENSE FOR EVALUATION USE ONLY
-CREATE TABLE  [LearningLanternServices].[dbo].[BackUpInstructor] (
-  [InstructorId] INT NOT NULL PRIMARY KEY,
-  [InstructorFirstName] NVARCHAR(50) NOT NULL,
-  [InstructorLastName] NVARCHAR(50) NOT NULL,
-  CONSTRAINT [FK_BackUpInstructor_ConfirmedInstructor]
-    FOREIGN KEY ([InstructorId])
-    REFERENCES [LearningLanternServices].[dbo].[ConfirmedInstructor] ([UserId])
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-    
-);
->>>>>>> main
 
 
 -- -----------------------------------------------------
@@ -642,7 +559,6 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Message]', N'U') IS NULL
 -- Table [LearningLanternServices].[dbo].[TodoStudent]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[TodoStudent]', N'U') IS NULL
-<<<<<<< HEAD
     CREATE TABLE  [LearningLanternServices].[dbo].[TodoStudent]
     (
         [TodoId] INT NOT NULL,
@@ -659,25 +575,3 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[TodoStudent]', N'U') IS NULL
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
     );
-=======
-CREATE TABLE  [LearningLanternServices].[dbo].[TodoStudent](
-  [TodoId] INT NOT NULL PRIMARY KEY,
-  [StudentId] INT NOT NULL PRIMARY KEY,
-  CONSTRAINT [fk_TODO_has_Confirmed_Student_TODO1]
-    FOREIGN KEY ([TodoId])
-    REFERENCES [LearningLanternServices].[dbo].[Todo] ([Id])
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT [fk_TODO_has_Confirmed_Student_Confirmed_Student1]
-    FOREIGN KEY ([StudentId])
-    REFERENCES [LearningLanternServices].[dbo].[ConfirmedStudent] ([UserId])
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-);
-
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
->>>>>>> main
