@@ -392,10 +392,6 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Team]', N'U') IS NULL
             ON DELETE CASCADE
             ON UPDATE CASCADE
     );
-<<<<<<< HEAD
-=======
-
->>>>>>> 12f409c9eed80e0c0d7244272faea3b53253748c
 
 
 -- -----------------------------------------------------
@@ -438,13 +434,8 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[TimeStamp]', N'U') IS NULL
         CONSTRAINT [FK_TimeStamp_Quiz]
             FOREIGN KEY ([QuizId])
             REFERENCES [LearningLanternServices].[dbo].[Quiz] ([Id])
-<<<<<<< HEAD
-            ON DELETE CASCADE
-            ON UPDATE CASCADE
-=======
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
->>>>>>> 12f409c9eed80e0c0d7244272faea3b53253748c
     );
 
 
