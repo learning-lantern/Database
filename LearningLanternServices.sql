@@ -192,7 +192,7 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Video]', N'U') IS NULL
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Quiz`
+-- Table [LearningLanternServices].[dbo].[Quiz]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Quiz]', N'U') IS NULL
     CREATE TABLE [LearningLanternServices].[dbo].[Quiz]
@@ -204,21 +204,21 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Quiz]', N'U') IS NULL
         [Answer] NVARCHAR(10) NOT NULL,
         [ClassroomId] INT NOT NULL,
         [InstructorId] INT NOT NULL,
-        CONSTRAINT [fk_Quiz_ClassRoom1]
+        CONSTRAINT [FK_Quiz_ClassRoom]
             FOREIGN KEY ([ClassroomId])
-            REFERENCES [learning-lantern-services].[Classroom] ([Id])
+            REFERENCES [LearningLanternServices].[Classroom] ([Id])
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-        CONSTRAINT [fk_Quiz_Confirmed_Instructor1]
+        CONSTRAINT [FK_Quiz_ConfirmedInstructor]
             FOREIGN KEY ([InstructorId])
-            REFERENCES [learning-lantern-services].[ConfirmedInstructor] ([UserId])
+            REFERENCES [LearningLanternServices].[ConfirmedInstructor] ([UserId])
             ON DELETE CASCADE
             ON UPDATE CASCADE
     );
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Exam`
+-- Table [LearningLanternServices].[dbo].[Exam]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Exam]', N'U') IS NULL
     CREATE TABLE [LearningLanternServices].[dbo].[Exam]
@@ -231,21 +231,21 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Exam]', N'U') IS NULL
         [ShowScore] BIT NOT NULL,
         [InstructorId] INT NOT NULL,
         [ClassroomId] INT NOT NULL,
-        CONSTRAINT [fk_Exam_Confirmed_Instructor1]
+        CONSTRAINT [FK_Exam_ConfirmedInstructor]
             FOREIGN KEY ([InstructorId])
-            REFERENCES [learning-lantern-services].[ConfirmedInstructor] ([UserId])
+            REFERENCES [LearningLanternServices].[ConfirmedInstructor] ([UserId])
             ON DELETE NO ACTION
             ON UPDATE NO ACTION,
-        CONSTRAINT [fk_Exam_ClassRoom1]
+        CONSTRAINT [FK_Exam_ClassRoom]
             FOREIGN KEY ([ClassroomId])
-            REFERENCES [learning-lantern-services].[Classroom] ([Id])
+            REFERENCES [LearningLanternServices].[Classroom] ([Id])
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
     );
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`ExamQuizes`
+-- Table [LearningLanternServices].[dbo].[ExamQuizes]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[ExamQuizes]', N'U') IS NULL
     CREATE TABLE [LearningLanternServices].[dbo].[ExamQuizes]
@@ -253,21 +253,21 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[ExamQuizes]', N'U') IS NULL
         [ExamId] INT NOT NULL,
         [QuizId] INT NOT NULL,
         PRIMARY KEY ([ExamId], [QuizId]),
-        CONSTRAINT [fk_Quizes_of_Exam_Exam1]
+        CONSTRAINT [FK_QuizesOfExam_Exam]
             FOREIGN KEY ([ExamId])
-            REFERENCES [learning-lantern-services].[Exam] ([Id])
+            REFERENCES [LearningLanternServices].[Exam] ([Id])
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-        CONSTRAINT [fk_Quizes_of_Exam_Quiz1]
+        CONSTRAINT [FK_QuizesOfExam_Quiz]
             FOREIGN KEY ([QuizId])
-            REFERENCES [learning-lantern-services].[Quiz] ([Id])
+            REFERENCES [LearningLanternServices].[Quiz] ([Id])
             ON DELETE CASCADE
             ON UPDATE NO ACTION
     );
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`StudentQuiz`
+-- Table [LearningLanternServices].[dbo].[StudentQuiz]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[StudentQuiz]', N'U') IS NULL
     CREATE TABLE [LearningLanternServices].[dbo].[StudentQuiz]
@@ -277,21 +277,21 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[StudentQuiz]', N'U') IS NULL
         [StudentAnswer] NVARCHAR(500) NOT NULL,
         [Score] DECIMAL(3,2) NOT NULL,
         PRIMARY KEY ([QuizId], [StudentId]),
-        CONSTRAINT [fk_Student_Quizes_Quiz1]
+        CONSTRAINT [FK_StudentQuizes_Quiz]
             FOREIGN KEY ([QuizId])
-            REFERENCES [learning-lantern-services].[Quiz] ([Id])
+            REFERENCES [LearningLanternServices].[Quiz] ([Id])
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-        CONSTRAINT [fk_Student_Quizes_Confirmed_Students1]
+        CONSTRAINT [FK_StudentQuizes_ConfirmedStudents]
             FOREIGN KEY ([StudentId])
-            REFERENCES [learning-lantern-services].[ConfirmedStudent] ([UserId])
+            REFERENCES [LearningLanternServices].[ConfirmedStudent] ([UserId])
             ON DELETE CASCADE
             ON UPDATE CASCADE
     );
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`StudentExam`
+-- Table [LearningLanternServices].[dbo].[StudentExam]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[StudentExam]', N'U') IS NULL
     CREATE TABLE [LearningLanternServices].[dbo].[StudentExam]
@@ -299,21 +299,21 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[StudentExam]', N'U') IS NULL
         [StudentId] INT NOT NULL,
         [ExamId] INT NOT NULL,
         PRIMARY KEY ([StudentId], [ExamId]),
-        CONSTRAINT [fk_Student_Exam_Confirmed_Students1]
+        CONSTRAINT [FK_StudentExam_ConfirmedStudents]
             FOREIGN KEY ([StudentId])
-            REFERENCES [learning-lantern-services].[ConfirmedStudent] ([UserId])
+            REFERENCES [LearningLanternServices].[ConfirmedStudent] ([UserId])
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-        CONSTRAINT [fk_Student_Exam_Exam1]
+        CONSTRAINT [FK_StudentExam_Exam]
             FOREIGN KEY ([ExamId])
-            REFERENCES [learning-lantern-services].[Exam] ([Id])
+            REFERENCES [LearningLanternServices].[Exam] ([Id])
             ON DELETE CASCADE
             ON UPDATE CASCADE
     );
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`Project`
+-- Table [LearningLanternServices].[dbo].[Project]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Project]', N'U') IS NULL
     CREATE TABLE [LearningLanternServices].[dbo].[Project]
@@ -325,16 +325,16 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Project]', N'U') IS NULL
         [MaxNumber] INT NOT NULL,
         [DueDate] DATETIME NOT NULL,
         [ClassroomId] INT NOT NULL,
-        CONSTRAINT [fk_Project_ClassRoom1]
+        CONSTRAINT [FK_Project_ClassRoom]
             FOREIGN KEY ([ClassroomId])
-            REFERENCES [learning-lantern-services].[Classroom] ([Id])
+            REFERENCES [LearningLanternServices].[Classroom] ([Id])
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
     );
 
 
 -- -----------------------------------------------------
--- Table `learning-lantern-services`.`InstructorProject`
+-- Table [LearningLanternServices].[dbo].[InstructorProject]
 -- -----------------------------------------------------
 IF OBJECT_ID(N'[LearningLanternServices].[dbo].[InstructorProject]', N'U') IS NULL
     CREATE TABLE [LearningLanternServices].[dbo].[InstructorProject]
@@ -342,14 +342,14 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[InstructorProject]', N'U') IS NU
         [ProjectId] INT NOT NULL,
         [InstructorId] INT NOT NULL,
         PRIMARY KEY ([ProjectId], [InstructorId]),
-        CONSTRAINT [fk_Instructor_Project_Project1]
+        CONSTRAINT [FK_InstructorProject_Project]
             FOREIGN KEY ([ProjectId])
-            REFERENCES [learning-lantern-services].[Project] ([Id])
+            REFERENCES [LearningLanternServices].[Project] ([Id])
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-        CONSTRAINT [fk_Instructor_Project_Confirmed_Instructor1]
+        CONSTRAINT [FK_InstructorProject_ConfirmedInstructor]
             FOREIGN KEY ([InstructorId])
-            REFERENCES [learning-lantern-services].[ConfirmedInstructor] ([UserId])
+            REFERENCES [LearningLanternServices].[ConfirmedInstructor] ([UserId])
             ON DELETE CASCADE
             ON UPDATE CASCADE
     );
@@ -362,12 +362,12 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[Attendance]', N'U') IS NULL
 CREATE TABLE [LearningLanternServices].[dbo].[Attendance](
   [QuizId] INT NOT NULL PRIMARY KEY,
   [LectureId] INT NOT NULL PRIMARY KEY,
-  CONSTRAINT [fk_Attendance_Quiz1]
+  CONSTRAINT [FK_Attendance_Quiz]
     FOREIGN KEY ([QuizId])
     REFERENCES [LearningLanternServices].[dbo].[Quiz]([Id])
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT [fk_Attendance_Lecture1]
+  CONSTRAINT [FK_Attendance_Lecture]
     FOREIGN KEY ([LectureId])
     REFERENCES [LearningLanternServices].[dbo].[Lecture]([Id])
     ON DELETE CASCADE
@@ -383,7 +383,7 @@ CREATE TABLE [LearningLanternServices].[dbo].[Team](
   [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
   [Score] DECIMAL(3,2) NULL,
   [ProjectId] INT NOT NULL,
-  CONSTRAINT [fk_team_Project1]
+  CONSTRAINT [FK_team_Project]
     FOREIGN KEY ([ProjectId])
     REFERENCES [LearningLanternServices].[dbo].[Project]([Id])
     ON DELETE CASCADE
@@ -399,12 +399,12 @@ IF OBJECT_ID(N'[LearningLanternServices].[dbo].[StudentTeam]', N'U') IS NULL
 CREATE TABLE [LearningLanternServices].[dbo].[StudentTeam] (
   [TeamId] INT NOT NULL PRIMARY KEY,
   [StudentId] INT NOT NULL PRIMARY KEY,
-  CONSTRAINT [fk_Student_Team_team1]
+  CONSTRAINT [FK_StudentTeam_Team]
     FOREIGN KEY ([TeamId])
     REFERENCES [LearningLanternServices].[dbo].[Team]([Id])
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT [fk_Student_Team_Confirmed_Student1]
+  CONSTRAINT [FK_StudentTeam_ConfirmedStudent]
     FOREIGN KEY ([StudentId])
     REFERENCES [LearningLanternServices].[dbo].[ConfirmedStudent]([UserId])
     ON DELETE CASCADE
@@ -423,12 +423,12 @@ CREATE TABLE  [LearningLanternServices].[dbo].[TimeStamp] (
   [VideoId] INT NOT NULL PRIMARY KEY,
   [Time] INT NOT NULL PRIMARY KEY,
   [QuizId] INT NOT NULL,
-  CONSTRAINT [fk_Timme_stamp_Video1]
+  CONSTRAINT [FK_TimmeStamp_Video]
     FOREIGN KEY ([VideoId])
     REFERENCES [LearningLanternServices].[dbo].[Video] ([Id])
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT [fk_Time_stamp_Quiz1]
+  CONSTRAINT [FK_TimeStamp_Quiz]
     FOREIGN KEY ([QuizId])
     REFERENCES [LearningLanternServices].[dbo].[Quiz] ([Id])
     ON DELETE CASCADE
@@ -445,7 +445,7 @@ CREATE TABLE  [LearningLanternServices].[dbo].[BackUpInstructor] (
   [InstructorId] INT NOT NULL PRIMARY KEY,
   [InstructorFirstName] NVARCHAR(50) NOT NULL,
   [InstructorLastName] NVARCHAR(50) NOT NULL,
-  CONSTRAINT [fk_BackUpInstructor_ConfirmedInstructor1]
+  CONSTRAINT [FK_BackUpInstructor_ConfirmedInstructor]
     FOREIGN KEY ([InstructorId])
     REFERENCES [LearningLanternServices].[dbo].[ConfirmedInstructor] ([UserId])
     ON DELETE NO ACTION
