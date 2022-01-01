@@ -528,9 +528,9 @@ IF OBJECT_ID(N'[LearningLantern].[dbo].[Task]', N'U') IS NULL
     );
 
 
--- -----------------------------------------------------
+-- -------------------------------------------------------
 -- Table [LearningLantern].[dbo].[Message]
--- -----------------------------------------------------
+-- -------------------------------------------------------
 IF OBJECT_ID(N'[LearningLantern].[dbo].[Message]', N'U') IS NULL
     CREATE TABLE  [LearningLantern].[dbo].[Message]
     (
@@ -554,9 +554,9 @@ IF OBJECT_ID(N'[LearningLantern].[dbo].[Message]', N'U') IS NULL
     );
 
 
--- -----------------------------------------------------
+-- --------------------------------------------------------
 -- Table [LearningLantern].[dbo].[TodoStudent]
--- -----------------------------------------------------
+-- --------------------------------------------------------
 IF OBJECT_ID(N'[LearningLantern].[dbo].[TodoStudent]', N'U') IS NULL
     CREATE TABLE  [LearningLantern].[dbo].[TodoStudent]
     (
