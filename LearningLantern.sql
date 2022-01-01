@@ -26,9 +26,9 @@ IF OBJECT_ID(N'[LearningLantern].[dbo].[User]', N'U') IS NULL
     );
 
 
--- -----------------------------------------------------
+-- ---------------------------------------------------
 -- Table [LearningLantern].[dbo].[ConfirmedStudent]
--- -----------------------------------------------------
+-- ---------------------------------------------------
 IF OBJECT_ID(N'[LearningLantern].[dbo].[ConfirmedStudent]', N'U') IS NULL
     CREATE TABLE [LearningLantern].[dbo].[ConfirmedStudent]
     (
