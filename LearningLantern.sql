@@ -604,5 +604,3 @@ IF OBJECT_ID(N'[LearningLantern].[dbo].[Synonym]', N'U') IS NULL
             ON DELETE CASCADE
             ON UPDATE CASCADE
     );
-    
-    
