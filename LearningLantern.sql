@@ -588,9 +588,9 @@ IF OBJECT_ID(N'[LearningLantern].[dbo].[TranslateRequest]', N'U') IS NULL
     );
 
 
--- -----------------------------------------------------
+-- ------------------------------------------------------
 -- Table [LearningLantern].[dbo].[Synonym]
--- -----------------------------------------------------
+-- ------------------------------------------------------
 IF OBJECT_ID(N'[LearningLantern].[dbo].[Synonym]', N'U') IS NULL
     CREATE TABLE [LearningLantern].[dbo].[Synonym]
     (
@@ -604,3 +604,5 @@ IF OBJECT_ID(N'[LearningLantern].[dbo].[Synonym]', N'U') IS NULL
             ON DELETE CASCADE
             ON UPDATE CASCADE
     );
+    
+    
